@@ -1,0 +1,190 @@
+Ejemplo 1: NIS: 1577102
+===============================
+
+CURL para simular el pago desde el Portal al Dispatcher
+curl -k -H 'Accept: application/json' \
+     -H "content-type: application/json" \
+     -X POST "http://10.10.17.135:8080/bancard/pagos/brands/ms-ande/product/factura/payment" \
+     --data-ascii '{
+                       "tid": 1528254224,
+                       "prd_id": 102,
+                       "sub_id": ["1577102"],
+                       "inv_id": [],
+                       "amt": 160140,
+                       "curr": "PYG",
+                       "trn_dat": "20150605",
+                       "trn_hou": "102340",
+                       "cm_amt": 3143,
+                       "cm_curr": "PYG",
+                       "addl": {
+                           "cmr_id": 231041,
+                           "cmr_bra": 1,
+                           "srv_dta": ["ROQUE JACINTO JIMENEZ"],
+                           "payment_method": "CASH"
+                       },
+                       "type": "merchant_payment"
+                   }'
+
+
+    >>>>>>>>>>>>>>>>>>>> payment request Motor IC a Dispatcher >>>>>>>>>>>>>>>>>>>>
+        remote address: 10.100.19.110
+        requestURI: https://jpos-proxy.bancard:9081/bancard/pagos/payment
+        json string:
+        {"tid":1528254224,"prd_id":102,"sub_id":["1577102"],"inv_id":[],"amt":160140,"curr":"PYG","trn_dat":"20150605","trn_hou":"102340","cm_amt":3140,"cm_curr":"PYG","addl":{"cmr_id":231041,"cmr_bra":1,"srv_dta":["ROQUE JACINTO JIMENEZ"],"payment_method":"CASH"},"type":"merchant_payment"}
+
+
+    <<<<<<<<<<<<<<<<<<<< payment response Dispatcher a Motor IC <<<<<<<<<<<<<<<<<<<<
+        response:
+        {
+  "status" : "success",
+  "tid" : 1528254224,
+  "aut_cod" : "254224",
+  "messages" : [ {
+    "level" : "success",
+    "key" : "PaymentProcessed",
+    "dsc" : "Payment processed successfully"
+  } ],
+  "prnt_msg" : [ "ESTE ES SU COMPROBANTE, CONSERVELO...", "A N D E", "RUC: 80009735-1         TEL: 211-001/10", "N.I.R.: 1577102        PAGO EN EFECTIVO", "PETROBRAS COLLIPEUMO" ]
+}
+
+
+
+Ejemplo 2: NIS: 2566780
+===============================
+CURL para simular el pago desde el Portal al Dispatcher
+
+curl -k -H 'Accept: application/json' \
+     -H "content-type: application/json" \
+     -X POST "https://localhost/bancard/pagos/payment" \
+     --data-ascii '{
+                       "tid": 1528257703,
+                       "prd_id": 102,
+                       "sub_id": ["2566780"],
+                       "inv_id": [],
+                       "amt": 72420,
+                       "curr": "PYG",
+                       "trn_dat": "20150605",
+                       "trn_hou": "104404",
+                       "cm_amt": 1420,
+                       "cm_curr": "PYG",
+                       "addl": {
+                           "cmr_id": 235547,
+                           "cmr_bra": 12,
+                           "srv_dta": ["PEDRO REGALADO VERA"],
+                           "payment_method": "CASH"
+                       },
+                       "type": "merchant_payment"
+                   }'
+
+    >>>>>>>>>>>>>>>>>>>> payment request Motor IC a Dispatcher >>>>>>>>>>>>>>>>>>>>
+        remote address: 10.100.19.110
+        requestURI: https://jpos-proxy.bancard:9081/bancard/pagos/payment
+        json string:
+        {"tid":1528257703,"prd_id":102,"sub_id":["2566780"],"inv_id":[],"amt":72420,"curr":"PYG","trn_dat":"20150605","trn_hou":"104404","cm_amt":1420,"cm_curr":"PYG","addl":{"cmr_id":235547,"cmr_bra":12,"srv_dta":["PEDRO REGALADO VERA"],"payment_method":"CASH"},"type":"merchant_payment"}
+
+    <<<<<<<<<<<<<<<<<<<< payment response Dispatcher a Motor IC <<<<<<<<<<<<<<<<<<<<
+
+        response:
+        {
+  "status" : "success",
+  "tid" : 1528257703,
+  "aut_cod" : "257703",
+  "messages" : [ {
+    "level" : "success",
+    "key" : "PaymentProcessed",
+    "dsc" : "Payment processed successfully"
+  } ],
+  "prnt_msg" : [ "ESTE ES SU COMPROBANTE, CONSERVELO...", "A N D E", "RUC: 80009735-1         TEL: 211-001/10", "N.I.R.: 2566780        PAGO EN EFECTIVO", "FCIA.VITALMED S.11" ]
+}
+Ejemplo 3: NIS: 2010323
+===============================
+
+CURL para simular el pago desde el Portal al Dispatcher
+curl -k -H 'Accept: application/json' \
+     -H "content-type: application/json" \
+     -X POST "https://localhost/bancard/pagos/payment" \
+     --data-ascii '{
+                       "tid": 1528257931,
+                       "prd_id": 102,
+                       "sub_id": ["2010323"],
+                       "inv_id": [],
+                       "amt": 11700,
+                       "curr": "PYG",
+                       "trn_dat": "20150605",
+                       "trn_hou": "104504",
+                       "cm_amt": 700,
+                       "cm_curr": "PYG",
+                       "addl": {
+                           "cmr_id": 295,
+                           "cmr_bra": 19,
+                           "srv_dta": ["ELADIA CACERES"],
+                           "payment_method": "CASH"
+                       },
+                       "type": "merchant_payment"
+                   }'
+
+    >>>>>>>>>>>>>>>>>>>> payment request Motor IC a Dispatcher >>>>>>>>>>>>>>>>>>>>
+        remote address: 10.100.19.110
+        requestURI: https://jpos-proxy.bancard:9081/bancard/pagos/payment
+        json string:
+        {"tid":1528257931,"prd_id":102,"sub_id":["2010323"],"inv_id":[],"amt":11700,"curr":"PYG","trn_dat":"20150605","trn_hou":"104504","cm_amt":700,"cm_curr":"PYG","addl":{"cmr_id":295,"cmr_bra":19,"srv_dta":["ELADIA CACERES"],"payment_method":"CASH"},"type":"merchant_payment"}
+
+    <<<<<<<<<<<<<<<<<<<< payment response Dispatcher a Motor IC <<<<<<<<<<<<<<<<<<<<
+        response:
+        {
+  "status" : "success",
+  "tid" : 1528257931,
+  "aut_cod" : "257931",
+  "messages" : [ {
+    "level" : "success",
+    "key" : "PaymentProcessed",
+    "dsc" : "Payment processed successfully"
+  } ],
+  "prnt_msg" : [ "ESTE ES SU COMPROBANTE, CONSERVELO...", "A N D E", "RUC: 80009735-1         TEL: 211-001/10", "N.I.R.: 2010323        PAGO EN EFECTIVO", "FCIA.FARMATITU-SANTA" ]
+}
+
+
+
+Ejemplo 4 - FACTURA NO ENCONTRADA: NIS: 1
+==========================================================
+    
+CURL para simular un pago desde el Portal al Dispatcher, el NIS/NIR no tiene el formato correspondiente.
+
+curl -k -H 'Accept: application/json'      -H "content-type: application/json"      -X POST "https://localhost/bancard/pagos/payment      --data-ascii '{
+                       "tid": 1528254224,
+                       "prd_id": 102,
+                       "sub_id": ["1"],
+                       "inv_id": [],
+                       "amt": 160140,
+                       "curr": "PYG",
+                       "trn_dat": "20150605",
+                       "trn_hou": "102340",
+                       "cm_amt": 314,
+                       "cm_curr": "PYG",
+                       "addl": {
+                           "cmr_id": 231041,
+                           "cmr_bra": 1,
+                           "srv_dta": ["ROQUE JACINTO JIMENEZ"],
+                           "payment_method": "CASH"
+                       },
+                       "type": "merchant_payment"
+                   }'
+
+    >>>>>>>>>>>>>>>>>>>> payment request Motor IC a Dispatcher >>>>>>>>>>>>>>>>>>>>
+        remote address: 10.100.19.110
+        requestURI: https://jpos-proxy.bancard:9081/bancard/pagos/payment
+        json string:
+        {"tid":1528254224,"prd_id":102,"sub_id":["1"],"inv_id":[],"amt":3140,"curr":"PYG","trn_dat":"20150605","trn_hou":"102340","cm_amt":314,"cm_curr":"PYG","addl":{"cmr_id":231041,"cmr_bra":1,"srv_dta":["ROQUE JACINTO JIMENEZ"],"payment_method":"CASH"},"type":"merchant_payment"}
+
+    <<<<<<<<<<<<<<<<<<<< payment response Dispatcher a Motor IC <<<<<<<<<<<<<<<<<<<<
+{
+  "status" : "error",
+  "error_code" : "06",
+  "tid" : 1528254224,
+  "messages" : [ {
+    "level" : "error",
+    "key" : "PaymentNotAuthorized",
+    "dsc" : "ERROR DE SISTEMA"
+  } ]
+}
+

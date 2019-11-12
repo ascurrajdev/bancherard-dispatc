@@ -1,0 +1,47 @@
+--- IP Publicas de Bancard ---
+------------------------------
+ 190.128.218.209
+ 
+------------------------------
+ 
+--- Aki server ---
+http://10.20.10.8:8080/RESTTests/rest/transfers
+http://10.20.10.8:8080/RESTTests/rest/reverse
+
+--- MS-Test server ---
+http://10.10.17.135:9999/ic-authorizer/transfers/transfers
+http://10.10.17.135:9999/ic-authorizer/transfers/transfer/reverse
+
+--- Transfer ---
+http://jpos-proxy.bancard:9081/bancard/pagos/transfers
+http://jpos-proxy.bancard:9081/bancard/pagos/transfer/reverse
+
+
+-----------------------------------------------
+---           Reversa Automatica            ---
+---  En portal de cobranzas (10.100.19.16)  ---
+-----------------------------------------------
+- bancard-billing-service/current/config/service_configuration.yml
+- sudo /etc/init.d/mizuno_billing_service restart
+
+-----------------------------------
+---      Reversa Automatica     --- 
+--- En boca web (10.100.19.116) ---
+-----------------------------------
+- setear la configuraciȯn auto_reverse_payments en true en bancard-epos-service/current/config/configuration.yml
+- sudo /etc/init.d/mizuno_epos_service restart 
+
+
+-----------------------------
+--- Cambios para deployar ---
+-----------------------------
+alter table bancard.microservices add status varchar(1) default 'A';
+alter table bancard.microservices add check (status in ('A', 'I'));
+alter table bancard.microservices alter column status set not null;
+
+
+---- Para desarrollo ----
+--- los que no son: Tigo, Asur, Proinsa, Electrocenter, techo, 
+update bancard.microservices set status = 'I' where id not in (4, 11, 65, 66, 49);
+
+

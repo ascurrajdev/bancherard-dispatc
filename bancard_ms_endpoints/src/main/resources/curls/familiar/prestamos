@@ -1,0 +1,2 @@
+
+curl -v -k -H 'Accept: application/json' -H "Content-Type: application/json" --noproxy localhost -X GET "http://localhost:8080/bancard/pagos/brands/ms-familiar/product/prestamos/invoices?tid=1234568&prd_id=123&sub_id%5B%5D=123456%2CCedulaIdentidad"

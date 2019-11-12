@@ -1,0 +1,58 @@
+#!groovy
+properties([
+    [
+        $class: 'BuildDiscarderProperty',
+        strategy: [
+            $class: 'LogRotator',
+            daysToKeepStr: '10',
+            numToKeepStr: '5'
+        ]
+    ]
+])
+
+node('linux') {
+
+    def mvnHome;
+    def sonar;
+
+    def rtServer;
+    def rtMaven;
+
+    def buildInfoAPI;
+    def projectName = 'ms_api';
+
+    stage('Preparation') {
+
+        mvnHome = tool 'M3';
+        sonar = tool 'sonar-main';
+
+        rtServer = Artifactory.server 'bancard';
+        rtMaven = Artifactory.newMavenBuild();
+
+        rtMaven.tool = 'M3';
+        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: rtServer;
+        rtMaven.resolver releaseRepo:'libs-release',       snapshotRepo:'libs-snapshot',       server: rtServer;
+
+        buildInfoAPI = Artifactory.newBuildInfo();
+
+        checkout scm;
+
+    }
+
+    stage('Build') {
+        rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfoAPI;
+        archive '**/target/*.war';
+    }
+
+    stage('Sonar') {
+        withSonarQubeEnv {
+            sh "${mvnHome}/bin/mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.branch=facturador/ms/${projectName}/${env.BRANCH_NAME} -Dsonar.projectKey=facturador:ms:${projectName}"
+        }
+    }
+
+    stage('Artifactory') {
+        rtServer.publishBuildInfo buildInfoAPI
+    }
+
+}
+

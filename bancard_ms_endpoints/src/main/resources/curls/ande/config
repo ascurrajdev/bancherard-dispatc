@@ -1,0 +1,8 @@
+# Carga un nuevo micro servicio
+curl -v -k -H 'Accept: application/json' -H "Content-Type: application/json" --noproxy localhost -X POST -d '{"className" : "py.com.sodep.bancard.ande.microservices.AndeMSImpl", "params": {"serviceUrl":  "http://localhost:2000/scows/factura.asmx", "user":"bancard","password":"C2D6BC64867AC6A9E085796D","passwordEncoding": "CP1252"}}' http://localhost:8080/bancard/admin/services/ms-ande/factura
+
+# Carga en memoria del Dispatcher todos los microservicios
+curl -v -k -H 'Accept: application/json' -H "Content-Type: application/json" --noproxy localhost -X POST http://localhost:8080/bancard/admin/services/reload
+
+# Actualiza micro servicio
+curl -v -k -H 'Accept: application/json' -H "Content-Type: application/json" --noproxy localhost -X PUT -d '{"className" : "py.com.sodep.bancard.ande.microservices.AndeMSImpl", "params": {"serviceUrl":  "http://localhost:2000/scows/factura.asmx", "user":"bancard","password":"C2D6BC64867AC6A9E085796D","passwordEncoding": "CP1252"}}' http://localhost:8080/bancard/admin/services/ms-ande/factura

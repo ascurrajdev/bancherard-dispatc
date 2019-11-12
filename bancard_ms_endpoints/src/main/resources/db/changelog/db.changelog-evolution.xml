@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+   <changeSet author="rodrigo" id="2">
+        <addNotNullConstraint
+            columnDataType="VARCHAR(255)"
+            columnName="class_name"
+            schemaName="bancard"
+            tableName="microservices"/>
+   </changeSet>
+   <changeSet author="rodrigo" id="3">
+        <addNotNullConstraint
+            columnDataType="VARCHAR(255)"
+            columnName="product"
+            schemaName="bancard"
+            tableName="microservices"/>
+   </changeSet>
+   <changeSet author="rodrigo" id="4">
+        <addNotNullConstraint
+            columnDataType="VARCHAR(255)"
+            columnName="service_name"
+            schemaName="bancard"
+            tableName="microservices"/>
+   </changeSet>
+   <changeSet author="rodrigo" id="5">
+   		<addColumn tableName="transaction_history" schemaName="bancard">
+   			<column name="inv_id" type="VARCHAR(500)"/>
+   		</addColumn>
+   		<addColumn tableName="transaction_history" schemaName="bancard">
+   			<column name="service_name" type="VARCHAR(255)"/>
+   		</addColumn>
+   		<addColumn tableName="transaction_history" schemaName="bancard">
+   			<column name="product" type="VARCHAR(255)"/>
+   		</addColumn>
+   </changeSet>
+   <changeSet author="rodrigo" id="6">
+   		<addColumn tableName="transaction_history" schemaName="bancard">
+   			<column name="biller_data" type="TEXT" />
+   		</addColumn>
+   </changeSet>
+    
+</databaseChangeLog>

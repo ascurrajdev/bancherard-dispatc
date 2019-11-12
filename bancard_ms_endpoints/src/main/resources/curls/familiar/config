@@ -1,0 +1,5 @@
+# Crea un nuevo ms de familiar
+curl -v -k -H 'Accept: application/json' -H "Content-Type: application/json" --noproxy localhost -X POST -d '{"className" : "py.com.sodep.bancard.familiar.microservices.FamiliarMSImpl", "params": {"serviceUrl":  "https://200.7.14.105/familiarb2b/familiarB2bCnbWs?wsdl", "user":"pwelti", "password":"abc123", "companyCode":"sq"}}' http://localhost:8080/bancard/admin/services/ms-familiar/prestamo?load=true
+
+# Actualiza micro servicio
+curl -v -k -H 'Accept: application/json' -H "Content-Type: application/json" --noproxy localhost -X PUT -d '{"className" : "py.com.sodep.bancard.familiar.microservices.FamiliarMSImpl", "params": {"serviceUrl":  "https://200.7.14.105/familiarb2b/familiarB2bCnbWs?wsdl", "user":"pwelti", "password":"abc123", "companyCode":"sq"}}' http://localhost:8080/bancard/admin/services/ms-familiar/prestamo?load=true

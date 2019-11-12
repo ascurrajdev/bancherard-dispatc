@@ -1,0 +1,111 @@
+-----------------------------------------------------
+--- CREAMOS EL TUNNEL EN EL PUERTO 2000 LOCALHOST ---
+-----------------------------------------------------
+$ ssh -f sodepusr@10.10.17.135 -L 2000:190.128.235.214:3050 -N
+
+---------------------------------------------------
+--- VERIFICAMOS QUE EN LOCALHOST ESTÉ EL SOCKET ---
+---------------------------------------------------
+$ telnet 127.0.0.1 2000
+
+--------------------------------------------
+--- VERIFICAMOS EL SOCKET LISTEN AL 2000 ---
+--------------------------------------------
+$ netstat -an | grep 2000
+
+-------------------------------------------------------------------
+--- VERIFICAMOS EL NUMERO DE PROCESO MEDIANTE EL SOCKET AL 2000 ---
+-------------------------------------------------------------------
+$ ps -ax | grep 2000
+
+
+SELECT COUNT(1) FROM AQUIPAGO_LISTAR_CUOTAS('3784208');
+SELECT CODIGO, NOMBRE, APELLIDO, FECHA_CUOTA, TOTAL, EMPRESA, NOMBREEMPRESA, ORIGEN_DEUDA FROM AQUIPAGO_LISTAR_CUOTAS('3784208');
+SELECT * FROM AQUIPAGO_LISTAR_CUOTAS('3784208');
+
+Usuarios de Prueba CI:
+1244041
+2041929
+874742
+366504
+897312
+612247
+312983
+1863646
+553585
+3784208
+
+Inv_id:
+"CONFIG_CUOTAS_PERIODICAS", (Descripcion)
+        "3835374",          (Codigo)
+        "1",                (Id Empresa)
+        "2017-06-01"        (Fecha de la Cuota)
+        
+        
+        
+{
+	"tid": 836515,
+	"status": "success",
+	"messages": [{
+		"level": "success",
+		"key": "QueryProcessed",
+		"dsc": ["LA CONSULTA FUE PROCESADA CON EXITO"]
+	}],
+	"invoices": [{
+		"due": "2017-05-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-05-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-05-01"
+	}, {
+		"due": "2017-06-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-06-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-06-01"
+	}, {
+		"due": "2017-07-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-07-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-07-01"
+	}, {
+		"due": "2017-08-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-08-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-08-01"
+	}, {
+		"due": "2017-09-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-09-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-09-01"
+	}, {
+		"due": "2017-10-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-10-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-10-01"
+	}, {
+		"due": "2017-11-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-11-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-11-01"
+	}, {
+		"due": "2017-12-01",
+		"amt": 79450,
+		"min_amt": 79450,
+		"inv_id": ["CONFIG_CUOTAS_PERIODICAS", "3845962", "1", "2017-12-01"],
+		"curr": "PYG",
+		"dsc": "GARCIA ROJAS LILIANA ELIZABETH - 2017-12-01"
+	}]
+}

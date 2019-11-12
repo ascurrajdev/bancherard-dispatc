@@ -1,0 +1,50 @@
+Procedimientos
+
+bancard_consulta.pf_consulta
+(wcontrato     in varchar2,
+
+                                                               wcodigo_trans
+in varchar2)
+
+ 
+
+genera datos para la tabla bcn_cuotas 
+
+ 
+
+bancard_reversion.pf_proceso
+(p_codigo_trans  in number
+
+,p_respuesta     out varchar2)
+
+ 
+
+ 
+
+bancard_cobranza.pf_pago
+(     p_contrato        IN NUMBER
+
+,p_cobrado_cuota  IN NUMBER
+
+,p_cobrado_mora   IN NUMBER
+
+,p_codigo_trans   IN NUMBER
+
+,p_respuesta      OUT VARCHAR2)
+
+
+
+
+
+
+#nombre de Base de Datos
+dbUser = bancard
+#password de la Base de Datos
+dbPassword = bancard
+#conección
+dbUrl = jdbc:oracle:thin:@localhost:8990/XE
+dbDriverName = oracle.jdbc.driver.OracleDriver
+#Procedimiento Almacenado
+spConsulta = {SELECT * FROM BCN_CUOTAS}
+spPagar = {call pf_pago (?,?,?,?,?)}
+spRevertir = {call pf_proceso (?,?)} 

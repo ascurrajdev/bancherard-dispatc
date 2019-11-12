@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+	
+	<changeSet id="1" author="rodrigo" runOnChange="true">
+		<sqlFile path="db/schema.sql" splitStatements="false" />
+	</changeSet>
+	<changeSet author="rodrigo (generated)" id="1444657578429-1">
+        <createTable tableName="microservices" schemaName="bancard">
+            <column name="id" type="SERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="microservices_pkey"/>
+            </column>
+            <column name="class_name" type="VARCHAR(255)"/>
+            <column name="product" type="VARCHAR(255)"/>
+            <column name="service_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1444657578429-2">
+        <createTable tableName="microservices_properties" schemaName="bancard">
+            <column name="id" type="SERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="microservices_properties_pkey" />
+            </column>
+            <column name="property_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="microservice_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1444657578429-3">
+        <createTable tableName="transaction_history" schemaName="bancard">
+            <column name="id" type="SERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transaction_history_pkey"/>
+            </column>
+            <column name="addl" type="TEXT"/>
+            <column name="amt" type="INT"/>
+            <column name="cm_amt" type="INT"/>
+            <column name="cm_curr" type="VARCHAR(255)"/>
+            <column defaultValueComputed="now()" name="created" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="curr" type="VARCHAR(255)"/>
+            <column name="informed" type="BOOL"/>
+            <column name="prd_id" type="INT"/>
+            <column name="status" type="INT"/>
+            <column name="sub_id" type="VARCHAR(255)"/>
+            <column name="trn_dat" type="VARCHAR(255)"/>
+            <column name="trn_hou" type="VARCHAR(255)"/>
+            <column name="tid" type="BIGINT"/>
+            <column name="type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1444657578429-4">
+        <createTable tableName="unexpected_errors" schemaName="bancard">
+            <column name="id" type="SERIAL">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="unexpected_errors_pkey"/>
+            </column>
+            <column name="exception_type" type="VARCHAR(250)"/>
+            <column defaultValueComputed="now()" name="insert_time" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="microservice_name" type="VARCHAR(255)"/>
+            <column name="stack_trace" type="TEXT"/>
+            <column name="url" type="VARCHAR(255)"/>
+            <column name="user_agent" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="rodrigo (generated)" id="1444657578429-7">
+        <addForeignKeyConstraint baseTableSchemaName="bancard" referencedTableSchemaName="bancard" baseColumnNames="microservice_id" baseTableName="microservices_properties" constraintName="fk_id_microservice_microservices" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="microservices"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1444657578429-8">
+        <addUniqueConstraint schemaName="bancard" columnNames="tid" constraintName="uk_transaction_history" deferrable="false" disabled="false" initiallyDeferred="false" tableName="transaction_history"/>
+    </changeSet>
+    <changeSet author="rodrigo (generated)" id="1444657578429-9">
+        <addUniqueConstraint schemaName="bancard" columnNames="service_name, product" constraintName="uk_microservices" deferrable="false" disabled="false" initiallyDeferred="false" tableName="microservices"/>
+    </changeSet>
+</databaseChangeLog>

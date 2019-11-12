@@ -1,0 +1,40 @@
+{
+    "status": "success",
+    "tid": 3949,
+    "messages": [
+        {
+            "level": "success",
+            "key": "QueryProcessed",
+            "dsc": [
+                "Consulta procesada con éxito"
+            ]
+        }
+    ],
+    "invoices": [
+        {
+            "due": "2012-07-13",
+            "amt": 100000,
+            "min_amt": 100000,
+            "inv_id": [
+                "234029384"
+            ],
+            "curr": "PYG",
+            "addl": [
+                "Factura Nro: 001-001-0001122 - Cliente: Juan Pérez"
+            ],
+            "next_dues": [
+                {
+                    "amt": 100500,
+                    "date": "2012-07-21"
+                },
+                {
+                    "amt": 101000,
+                    "date": "2012-07-27"
+                }
+            ],
+            "cm_amt": 1000,
+            "cm_curr": "PYG",
+            "dsc": "Cuota de Enero"
+        }
+    ]
+}

@@ -1,0 +1,71 @@
+#!groovy
+
+node('linux') {
+
+    def mvnHome;
+    def sonar;
+
+    def rtServer;
+    def rtMaven;
+
+    def buildInfoAPI;
+    def projectName = 'ms_cit';
+    def serviceName = 'ms-cit';
+    def productName = 'cuotas';
+
+    stage('Preparation') {
+
+        mvnHome = tool 'M3';
+        sonar = tool 'sonar-main';
+
+        rtServer = Artifactory.server 'bancard';
+        rtMaven = Artifactory.newMavenBuild();
+
+        rtMaven.tool = 'M3';
+        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: rtServer;
+        rtMaven.resolver releaseRepo:'libs-release',       snapshotRepo:'libs-snapshot',       server: rtServer;
+
+        buildInfoAPI = Artifactory.newBuildInfo();
+
+        checkout scm;
+
+    }
+
+    stage('Set version') {
+        if (env.BRANCH_NAME != 'master') {
+            version = sh returnStdout: true, script: 'sh ./utils/find_version.sh';
+            sh "${mvnHome}/bin/mvn versions:set -DnewVersion='${version}${env.BRANCH_NAME}-SNAPSHOT'";
+        }
+    }
+
+    stage('Build') {
+        rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfoAPI;
+        archive '**/target/*.jar';
+    }
+
+    stage('Sonar') {
+        withSonarQubeEnv {
+            sh "${mvnHome}/bin/mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar -Dsonar.branch=facturador/ms/${projectName}/${env.BRANCH_NAME} -Dsonar.projectKey=facturador:ms:${projectName}"
+        }
+    }
+
+    stage('Artifactory') {
+        rtServer.publishBuildInfo buildInfoAPI
+    }
+
+    stage('Deploy') {
+        //if (env.BRANCH_NAME != 'master') {
+            //return;
+        //}
+        sshagent(['jenkins.key.10.100.19.152']) {
+            sh 'scp -v target/*.jar sodepusr@10.10.17.135:/opt/bancard/plugins/';
+            sh "scp -v ./utils/deploy.sh sodepusr@10.10.17.135:/opt/bancard/plugins/deploy_${projectName}.sh";
+            sh "scp -v ./utils/create_payload.json sodepusr@10.10.17.135:/opt/bancard/plugins/payload_${projectName}.json";
+            params="${serviceName} https://localhost ${productName} /opt/bancard/plugins/payload_${projectName}.json";
+            sh "ssh sodepusr@10.10.17.135 'sh /opt/bancard/plugins/deploy_${projectName}.sh ${params}'";
+        }
+    }
+
+
+}
+

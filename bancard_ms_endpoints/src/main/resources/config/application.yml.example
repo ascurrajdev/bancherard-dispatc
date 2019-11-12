@@ -1,0 +1,49 @@
+spring.jackson.serialization.INDENT_OUTPUT: true
+server.context-path: /bancard
+
+logging.file: c:/opt/bancard/apache-tomcat-8.0.24/logs/dispatcher.log
+logging.config: c:/opt/bancard/envs/development/logback.xml
+
+ms.default.timeout: 5000
+ms.default.max_timeout: 10
+ms.default.number_of_fails: 2
+ms.executor.pool.size: 200
+ms.dynamic.jar.location: c:/opt/bancard/plugins
+
+liquibase:
+   changeLog: "classpath:db/changelog/db.changelog-master.xml"
+
+#deshabilitado para todos los perfiles por el momento
+security:
+  basic:
+    enabled: false
+
+---
+spring:
+   profiles: default
+   datasource:
+      platform: postgres
+      driverClassName: org.postgresql.Driver
+      url: "jdbc:postgresql://localhost:5432/bancard_dev"
+      username: postgres
+      password: 12345
+   jpa:
+      database: POSTGRESQL
+      show-sql: true
+      hibernate.ddl-auto: none
+      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+
+
+---
+spring:
+   profiles: test
+   datasource:
+      platform: h2
+      driverClassName: org.h2.Driver
+      url: "jdbc:h2:mem:test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"
+      # schema: classpath:/schema-h2.sql
+   jpa:
+      database: H2
+      show-sql: true
+      hibernate.ddl-auto: create-drop
+      database-platform: H2

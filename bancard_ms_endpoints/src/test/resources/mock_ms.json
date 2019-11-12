@@ -1,0 +1,11 @@
+{  
+   "serviceName":"ms-ande",
+   "product":"factura",
+   "className":"py.com.sodep.bancard.ms.dummy.DummyFacturas",
+   "params":{  
+      "serviceUrl":"http://localhost:2000/scows/factura.asmx",
+      "user":"bancard",
+      "password":"C2D6BC64867AC6A9E085796D",
+      "passwordEncoding":"CP1252"
+   }
+}

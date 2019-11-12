@@ -1,0 +1,13 @@
+{
+"status": "success",
+"tid": 3949,
+"messages": [
+{
+"level": "info",
+"key": "SubscriberNotFound",
+"dsc": [
+"El abonado con código 929394 no existe"
+]
+}
+]
+}
